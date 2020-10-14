@@ -1,0 +1,44 @@
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for leter in messages %}
+<p>{{ leter }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<form action="/add_contact" method="POST">
+    <input type="text" name="fullname" placeholder="Nombre">      
+    <!-- <input type="text" name="use" placeholder="Tipo"> -->
+    <input type="text" name="powerW" placeholder="Potencia Activa">
+    <input type="text" name="powerS" placeholder="Potencia Aparente">
+    <select name="use" aria-placeholder="Tipo de Carga">
+        <option value="I">Iluminación</option>
+        <option value="T">Tomacorrientes</option>
+    </select>
+    <button type="submit">Save</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <td>Nombre</td>
+            <td>Tipo</td>
+            <td>P Activa</td>
+            <td>P Aparente</td>
+            <td>P Aparente</td>
+        </tr>
+    </thead>
+    <tbody>
+{% for carga in cargas %}
+        <tr>
+            <td>{{carga.1}}</td>
+            <td>{{carga.2}}</td>
+            <td>{{carga.3}}</td>
+            <td>{{carga.4}}</td>
+            <td>
+                <a href="/edit/{{carga.0}}">Edit</a>
+                <a href="/delete/{{carga.0}}">Delete</a>
+            </td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
