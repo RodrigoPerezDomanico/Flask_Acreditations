@@ -10,6 +10,8 @@ mysql = MySQL(app)
 
 # Settings
 app.secret_key = 'mysecretkey'
+def suma_dados():
+    return 0
 def get_form_data():
     fullname=request.form['fullname']
     use=request.form['use']
