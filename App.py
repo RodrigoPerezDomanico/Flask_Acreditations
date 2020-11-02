@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysql_connector import MySQL
 
 app = Flask(__name__)
-app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_HOST'] = 'mysql://b06c0ba4bfa64f:bc41ba15@us-cdbr-east-02.cleardb.com/heroku_4a7bc29ad5db268?reconnect=true'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'Rodrigo1'
 app.config['MYSQL_DB'] = 'instalaciones'
