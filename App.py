@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysql_connector import MySQL
-
+db_name='heroku_4176df70e24c00b'
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'us-cdbr-east-02.cleardb.com'
-app.config['MYSQL_USER'] = 'b06c0ba4bfa64f'
-app.config['MYSQL_PASSWORD'] = 'bc41ba15'
-app.config['MYSQL_DB'] = 'heroku_4a7bc29ad5db268'
+app.config['MYSQL_USER'] = 'bfe72865c42656'
+app.config['MYSQL_PASSWORD'] = '14b76e1c'
+app.config['MYSQL_DB'] = 'heroku_4176df70e24c00b'
 mysql = MySQL(app)
 
 # Settings
@@ -24,9 +24,9 @@ def mysql_QUERRY(querry):
     mysql.connection.commit()
 def get_mysql_data(id=""):
     if id == "":
-        querry='select * from instalaciones.Cargas'
+        querry='select * from heroku_4176df70e24c00b.Cargas'
     else:
-        querry=f'select * from instalaciones.Cargas where id ={id}'
+        querry=f'select * from heroku_4176df70e24c00b.Cargas where id ={id}'
     cur = mysql.connection.cursor()
     cur.execute(querry)
     data = cur.fetchall()
@@ -34,7 +34,7 @@ def get_mysql_data(id=""):
 
 def sum(val_1,val_2):
     return val_1, val_2, val_1+val_2
-EXAMPLE_SQL = 'select * from instalaciones.Cargas'
+EXAMPLE_SQL = 'select * from heroku_4176df70e24c00b.Cargas'
 
 @app.route('/')
 def Index():
@@ -46,9 +46,9 @@ def Index():
 def add_contact():
     if request.method == 'POST':
         fullname, use, powerW, powerS = get_form_data()
-        mysql_QUERRY(f'INSERT INTO instalaciones.Cargas (Nombre, Tipo, PotenciaW, PotenciaS) VALUES("{fullname}", "{use}", "{powerW}", "{powerS}")')
+        mysql_QUERRY(f'INSERT INTO heroku_4176df70e24c00b.Cargas (Nombre, Tipo, PotenciaW, PotenciaS) VALUES("{fullname}", "{use}", "{powerW}", "{powerS}")')
         # cur = mysql.connection.cursor()
-        # cur.execute('INSERT INTO instalaciones.Cargas (fullname, use, powerW) VALUES(%s, %s, %s)',
+        # cur.execute('INSERT INTO heroku_4176df70e24c00b.Cargas (fullname, use, powerW) VALUES(%s, %s, %s)',
         # (fullname, use, powerW))
         # mysql.connection.commit()
         flash('Carga Agregada Satisfactoriamente')
@@ -64,14 +64,14 @@ def update_contact(id):
     if request.method == 'POST':
         fullname, use, powerW, powerS = get_form_data()
         cur = mysql.connection.cursor()
-        cur.execute(f'update instalaciones.Cargas set fullname="{str(fullname)}", use="{str(use)}", powerW="{str(powerW)}" powerS="{str(powerS)}" where id = {id}')
+        cur.execute(f'update heroku_4176df70e24c00b.Cargas set fullname="{str(fullname)}", use="{str(use)}", powerW="{str(powerW)}" powerS="{str(powerS)}" where id = {id}')
         mysql.connection.commit()
         return redirect(url_for('Index'))
 
 @app.route('/delete/<string:id>')
 def delete(id):
     cur = mysql.connection.cursor()
-    cur.execute(f'delete from instalaciones.Cargas where id = {id}')
+    cur.execute(f'delete from heroku_4176df70e24c00b.Cargas where id = {id}')
     mysql.connection.commit()
     flash('Contact succesfully removed')
     return redirect(url_for('Index'))
