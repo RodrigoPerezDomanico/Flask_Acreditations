@@ -33,8 +33,8 @@ def get_mysql_data(id=""):
 
 
 EXAMPLE_SQL = 'select * from heroku_4176df70e24c00b.cargas'
-@app.route('/login')
-def Login():
+# @app.route('/login')
+# def Login():
     
 @app.route('/')
 def Index():
