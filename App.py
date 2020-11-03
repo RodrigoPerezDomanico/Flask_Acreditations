@@ -33,7 +33,9 @@ def get_mysql_data(id=""):
 
 
 EXAMPLE_SQL = 'select * from heroku_4176df70e24c00b.cargas'
-
+@app.route('/login')
+def Login():
+    
 @app.route('/')
 def Index():
     data = get_mysql_data() 
@@ -61,9 +63,8 @@ def get_contact(id):
 def update_contact(id):
     if request.method == 'POST':
         fullname, use, powerW, powerS = get_form_data()
-        cur = mysql.connection.cursor()
-        cur.execute(f'update heroku_4176df70e24c00b.cargas set fullname="{str(fullname)}", use="{str(use)}", powerW="{str(powerW)}" powerS="{str(powerS)}" where id = {id}')
-        mysql.connection.commit()
+        querry=f'update {db_name}.cargas set Nombre="{str(fullname)}", Tipo="{str(use)}", PotenciaW="{str(powerW)}", PotenciaS="{str(powerS)}" where id = {id}'
+        mysql_QUERRY(querry)
         return redirect(url_for('Index'))
 
 @app.route('/delete/<string:id>')

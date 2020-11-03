@@ -1,6 +1,10 @@
 <form action="/update/{{contact.0}}" method="POST">
     <input type="text" name="fullname" placeholder="Fullname" value='{{contact.1}}'>
-    <input type="text" name="phone" placeholder="Phone" value='{{contact.2}}'>
-    <input type="text" name="email" placeholder="Email" value='{{contact.3}}'>
+    <input type="text" name="powerW" placeholder="Potencia Activa" value='{{contact.3}}'>
+    <input type="text" name="powerS" placeholder="Potencia Aparente" value='{{contact.4}}'>
+    <select name="use" aria-placeholder="Tipo de Carga" value='{{contact.2}}'>
+        <option value="I">Iluminación</option>
+        <option value="T">Tomacorrientes</option>
+    </select>
     <button type="submit">Save</button>
 </form>
