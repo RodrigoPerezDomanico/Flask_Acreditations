@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_mysql_connector import MySQL
-from databases import LocalHost
-Host=LocalHost
+from databases import LocalHost, WebHost
+
+Host=WebHost
 db_name=Host['db_name']
 
 

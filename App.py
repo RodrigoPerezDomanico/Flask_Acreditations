@@ -29,6 +29,7 @@ def login():
 @app.route('/check_user', methods=['POST','GET'])
 def check_user():
     login_data=get_login_data()
+    print(login_data)
     is_valid_user=validate_login(login_data,mysql)
     
     if is_valid_user:
