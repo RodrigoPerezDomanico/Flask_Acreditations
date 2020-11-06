@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, make_response
 from flask_mysql_connector import MySQL
-import flask_login as flog
 from databases import WebHost
 from utils import get_form_data, get_login_data, get_mysql_data, mysql_QUERRY, validate_login, get_user_data
 
@@ -16,29 +15,6 @@ app.config['MYSQL_PASSWORD'] = Host['password']
 app.config['MYSQL_DB'] = f'{db_name}'
 app.secret_key = 'mysecretkey'
 mysql = MySQL(app)
-
-
-# Configuración del Login
-login_manager =flog.LoginManager()
-login_manager.init_app(app)
-class User(flog.UserMixin):
-    pass
-
-@login_manager.user_loader
-def user_loader():
-    login_data=get_login_data()
-    is_valid_user=validate_login(login_data,mysql)
-    if not is_valid_user:
-        return
-    user=User()
-    user.id=login_data[0]
-    user.is_authenticated=True
-
-
-
-
-    
-
 
 EXAMPLE_SQL = f'select * from {db_name}.cargas'
 
@@ -122,6 +98,8 @@ def delete(id):
 
 if __name__ == "__main__":
     app.run(port=3000, debug=True)
+
+    
 # from flask import Flask, render_template, request, redirect, url_for, flash
 # from flask_mysql_connector import MySQL
 # db_name='heroku_4176df70e24c00b'
