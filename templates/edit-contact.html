@@ -1,10 +1,47 @@
-<form action="/update/{{contact.0}}" method="POST">
-    <input type="text" name="fullname" placeholder="Fullname" value='{{contact.1}}'>
-    <input type="text" name="powerW" placeholder="Potencia Activa" value='{{contact.3}}'>
-    <input type="text" name="powerS" placeholder="Potencia Aparente" value='{{contact.4}}'>
-    <select name="use" aria-placeholder="Tipo de Carga" value='{{contact.2}}'>
-        <option value="I">Iluminación</option>
-        <option value="T">Tomacorrientes</option>
-    </select>
-    <button type="submit">Save</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        body{background:#FF9000;}
+        .form-div{
+            margin-top: 10px;
+        }
+        .btn btn-light{
+            padding-right: 0px 5px;
+        }
+        .table-div{
+            margin-top: 15px;
+        }
+        .tbody-dark{
+            background-color: grey;
+            color: white;
+        }
+        .form-control{
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-div">
+        <form class="form-inline" action="/update/{{contact.0}}" method="POST">
+            <input class="form-control" type="text" name="fullname" placeholder="Fullname" value='{{contact.1}}'>
+            <input class="form-control" type="text" name="powerW" placeholder="Potencia Activa" value='{{contact.3}}'>
+            <input class="form-control" type="text" name="powerS" placeholder="Potencia Aparente" value='{{contact.4}}'>
+            <select class="form-control" name="use" aria-placeholder="Tipo de Carga" value='{{contact.2}}'>
+                <option value="I">Iluminación</option>
+                <option value="T">Tomacorrientes</option>
+            </select>
+            <button type="submit" class="btn btn-dark">Save</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
+
+

@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_mysql_connector import MySQL
 from databases import LocalHost, WebHost
 
-Host=WebHost
-db_name=Host['db_name']
+# Host=WebHost
+# db_name=Host['db_name']
 
 
 def get_form_data():
@@ -25,7 +25,7 @@ def mysql_QUERRY(querry,mysql,requires_data=False):
     except:
         return []
 
-def get_mysql_data(mysql,id=""):
+def get_mysql_data(mysql,db_name,id=""):
     if id == "":
         querry=f'select * from  {db_name}.cargas'
     else:
@@ -43,26 +43,22 @@ def get_login_data():
 
 
 
-def validate_login(login_data,mysql):
+def validate_login(login_data,mysql,db_name):
     
-    user_data=get_user_data(login_data,mysql)
-    print(user_data)
+    user_data=get_user_data(login_data,mysql,db_name)
+    
     if user_data != []:
         is_valid_user=True
-        print(is_valid_user)
         return is_valid_user
     else:
         is_valid_user=False
-        print(is_valid_user)
         return is_valid_user
     
-def get_user_data(login_data,mysql):
+def get_user_data(login_data,mysql,db_name):
 
     if len(login_data)==2:
-        print('Querry1')
         querry =f'select * from {db_name}.usuarios where NombreUsuario="{str(login_data[0])}" and ContraseñaUsuario="{str(login_data[1])}"'
     else:
-        print('Querry2')
         querry =f'select * from {db_name}.usuarios where NombreUsuario="{str(login_data)}"'
     user_data = mysql_QUERRY(querry,mysql,requires_data=True)
     return user_data
