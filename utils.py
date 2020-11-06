@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_mysql_connector import MySQL
-import flask_login as flog
 from databases import LocalHost
 Host=LocalHost
 db_name=Host['db_name']
