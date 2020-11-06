@@ -1,44 +1,85 @@
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-{% for leter in messages %}
-<p>{{ leter }}</p>
-{% endfor %}
-{% endif %}
-{% endwith %}
-<form action="/add_contact" method="POST">
-    <input type="text" name="fullname" placeholder="Nombre">      
-    <!-- <input type="text" name="use" placeholder="Tipo"> -->
-    <input type="text" name="powerW" placeholder="Potencia Activa">
-    <input type="text" name="powerS" placeholder="Potencia Aparente">
-    <select name="use" aria-placeholder="Tipo de Carga">
-        <option value="I">Iluminación</option>
-        <option value="T">Tomacorrientes</option>
-    </select>
-    <button type="submit">Save</button>
-</form>
-
-<table>
-    <thead>
-        <tr>
-            <td>Nombre</td>
-            <td>Tipo</td>
-            <td>P Activa</td>
-            <td>P Aparente</td>
-            <td>Acción</td>
-        </tr>
-    </thead>
-    <tbody>
-{% for carga in cargas %}
-        <tr>
-            <td>{{carga.1}}</td>
-            <td>{{carga.2}}</td>
-            <td>{{carga.3}}</td>
-            <td>{{carga.4}}</td>
-            <td>
-                <a href="/edit/{{carga.0}}">Edit</a>
-                <a href="/delete/{{carga.0}}">Delete</a>
-            </td>
-        </tr>
-{% endfor %}
-    </tbody>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Cargas Dashboard</title>
+    <style>
+        body{background:#FF9000;}
+        .form-div{
+            margin-top: 10px;
+        }
+        .btn btn-light{
+            padding-right: 0px 5px;
+        }
+        .table-div{
+            margin-top: 15px;
+        }
+        .tbody-dark{
+            background-color: grey;
+            color: white;
+        }
+        .form-control{
+            margin-right: 4px;
+        }
+    </style>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for leter in messages %}
+    <p>{{ leter }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="form-div">
+    <form class="form-inline" action="/add_contact" method="POST">
+        <input class="form-control" type="text" name="fullname" placeholder="Nombre">      
+        <!-- <input type="text" name="use" placeholder="Tipo"> -->
+        <input class="form-control" type="text" name="powerW" placeholder="Potencia Activa">
+        <input class="form-control" type="text" name="powerS" placeholder="Potencia Aparente">
+        <select class="form-control" name="use" aria-placeholder="Tipo de Carga">
+            <option value="I">Iluminación</option>
+            <option value="T">Tomacorrientes</option>
+        </select>
+        <button type="submit" class="btn btn-dark">Agregar Carga</button>
+    </form>
+    </div>
+    <div class="table-div">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <!-- <td>Nombre</td>
+                <td>Tipo</td>
+                <td>P Activa</td>
+                <td>P Aparente</td>
+                <td>Acción</td> -->
+                <th scope="col">Nombre</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">P Activa</th>
+                <th scope="col">P Aparente</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody class="tbody-dark">
+    {% for carga in cargas %}
+            <tr>
+                <td>{{carga.1}}</td>
+                <td>{{carga.2}}</td>
+                <td>{{carga.3}}</td>
+                <td>{{carga.4}}</td>
+                <td>
+                    <a class="btn btn-light btn-sm" href="/edit/{{carga.0}}">Edit</a>
+                    <a class="btn btn-light btn-sm" href="/delete/{{carga.0}}">Delete</a>
+                </td>
+            </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        
+        @import url(https://fonts.googleapis.com/css?family=Vibur);
+        *{
+        box-sizing:border-box;
+        -moz-box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+        font-family:arial;
+        }
+        body{background:#FF9000;}
+        h1{
+        color:#ccc;
+        text-align:center;
+        font-family: 'Vibur', cursive;
+        font-size: 30px;
+        }
+
+        .login-form{
+        width:350px;
+        padding:40px 30px;
+        background:#eee;
+        @include border-radius(4px);
+        margin:auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top:30%;
+        @include translateY(-50%);
+        }
+        .form-group{
+        position: relative;
+        margin-bottom:15px;
+        }
+        .form-control{
+        width:100%;
+        height:50px;
+        border:none;
+        padding:5px 7px 5px 15px;
+        background:#fff;
+        color:#666;
+        border:2px solid #ddd;
+        }
+        .form-group .fa{
+        position: absolute;
+        right:15px;
+        top:17px;
+        color:#999;
+        }
+        .log-status.wrong-entry {
+        }
+        .log-status.wrong-entry .form-control, .wrong-entry .form-control + .fa {
+        border-color: #ed1c24;
+        color: #ed1c24;
+        }
+        .log-btn{
+        background:#0AC986;
+        display:inline-block;
+        width:100%;
+        font-size:16px;
+        height:50px;
+        color:#fff;
+        text-decoration:none;
+        border:none;
+        }
+
+        .link{
+        text-decoration:none;
+        color:#C6C6C6;
+        float:right;
+        font-size:12px;
+        margin-bottom:15px;
+        &:hover{
+            text-decoration: underline;
+            color:#8C918F;
+        }
+        }
+        .alert{
+        display:none;
+        font-size:12px;
+        color:#919191;
+        float:left;
+        }
+        .form-error {
+            display: flex;
+            color: rgb(73, 73, 73);
+            font-size: 12px;
+            padding-top: 12px;
+            justify-content: center;
+        }
+
+    </style>
+    <title>Instalaciones Eléctricas App</title>
+    
+</head>
+<body>
+    <div class="login-form">
+        <form action="/check_user" method="POST">
+        
+            <h1>Instalaciones Eléctricas</h1>
+            <div class="form-group ">
+            <input type="text" class="form-control" placeholder="Usuario " name="UserName">
+            <i class="fa fa-user"></i>
+            </div>
+            <div class="form-group log-status">
+            <input type="password" class="form-control" placeholder="Password" name="Password">
+            <i class="fa fa-lock"></i>
+            </div>
+            <!-- <span class="alert">Invalid Credentials</span> -->
+            <button type="submit" class="log-btn" >Log in</button>
+
+        </form>
+        <div class="form-error">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for leter in messages %}
+            <p>{{ leter }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+</body>
+</html>
+
