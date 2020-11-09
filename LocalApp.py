@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, make_response
 from flask_mysql_connector import MySQL
-import flask_login as flog
 from databases import LocalHost
 from utils import get_form_data, get_login_data, get_mysql_data, mysql_QUERRY, validate_login, get_user_data
 
