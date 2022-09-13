@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, make_response
 from flask_mysql_connector import MySQL
-from databases import WebHost
+from databases import WebHost, LocalHost
 from utils import get_form_data, get_login_data, get_mysql_data, mysql_QUERRY, validate_login, get_user_data
 
-Host=WebHost
+Host=LocalHost
 db_name=Host['db_name']
 
 
@@ -15,6 +15,7 @@ app.config['MYSQL_PASSWORD'] = Host['password']
 app.config['MYSQL_DB'] = f'{db_name}'
 app.secret_key = 'mysecretkey'
 mysql = MySQL(app)
+print(app.config['MYSQL_DB'])
 
 EXAMPLE_SQL = f'select * from {db_name}.cargas'
 
@@ -30,7 +31,8 @@ def login():
 def check_user():
     login_data=get_login_data()
     print(login_data)
-    is_valid_user=validate_login(login_data,mysql)
+    print(mysql)
+    is_valid_user=validate_login(login_data,mysql,db_name)
     
     if is_valid_user:
         response=make_response(redirect(url_for('Index')))
@@ -55,12 +57,12 @@ def Index():
     if login_name==None:
         return redirect(url_for('login'))
     
-    user_name=get_user_data(login_name,mysql)[0][1]
+    user_name=get_user_data(login_name,mysql,db_name)[0][1]
     
     if login_name==user_name:
-        data = get_mysql_data(mysql) 
+        data = get_mysql_data(mysql,db_name) 
 
-        return render_template('index.html', cargas=data)
+        return render_template('cargas.html', cargas=data)
     else:
         return redirect(url_for('login'))
 
