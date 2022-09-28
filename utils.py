@@ -8,10 +8,8 @@ from databases import LocalHost, WebHost
 
 def get_form_data():
     fullname=request.form['fullname']
-    use=request.form['use']
-    powerW=request.form['powerW']
-    powerS=request.form['powerS']
-    return fullname, use, powerW, powerS
+    idNumber=request.form['idNumber']
+    return fullname,idNumber
     
 def mysql_QUERRY(querry,mysql,requires_data=False):
     cur = mysql.connection.cursor()
@@ -25,14 +23,21 @@ def mysql_QUERRY(querry,mysql,requires_data=False):
     except:
         return []
 
-def get_mysql_data(mysql,db_name,id=""):
+def get_mysql_data(mysql,db_name,id="",reg=None):
+    print(reg)
+    
     if id == "":
-        querry=f'select * from  {db_name}.cargas'
+        querry=f'select * from  {db_name}.alumnos'
     else:
-        querry=f'select * from {db_name}.cargas where id ={id}'
+        if reg=='nombreAlumnos':
+            querry=f'select * from {db_name}.alumnos where nombreAlumnos="{str(id)}"'
+        else:
+            querry=f'select * from {db_name}.alumnos where DNIAlumnos={id}'
+
     cur = mysql.connection.cursor()
     cur.execute(querry)
     data = cur.fetchall()
+    print(data)
     return data
 
 

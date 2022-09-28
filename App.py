@@ -1,7 +1,11 @@
+from urllib import response
 from flask import Flask, render_template, request, redirect, url_for, flash, session, make_response
 from flask_mysql_connector import MySQL
+# from project.users.forms import UserForm
 from databases import WebHost, LocalHost
 from utils import get_form_data, get_login_data, get_mysql_data, mysql_QUERRY, validate_login, get_user_data
+# from flask_login import LoginManager
+# login_manager = LoginManager()
 
 Host=LocalHost
 db_name=Host['db_name']
@@ -15,28 +19,40 @@ app.config['MYSQL_PASSWORD'] = Host['password']
 app.config['MYSQL_DB'] = f'{db_name}'
 app.secret_key = 'mysecretkey'
 mysql = MySQL(app)
+# login_manager.init_app(app)
 print(app.config['MYSQL_DB'])
 
 EXAMPLE_SQL = f'select * from {db_name}.cargas'
 
+
 @app.route('/')
 def login():
     login_name=request.cookies.get('LoginName')
+    print(session)
     if login_name!=None:
         return redirect(url_for('Index'))
     return render_template('login.html')
+
+
+
+@app.route('/logout', methods=['POST','GET'])
+def logout():
+    response=make_response(redirect(url_for('Index')))
+    response.set_cookie('LoginName', '', expires=-1)
+    return response
+    
 
 
 @app.route('/check_user', methods=['POST','GET'])
 def check_user():
     login_data=get_login_data()
     print(login_data)
-    print(mysql)
+    # print(mysql)
     is_valid_user=validate_login(login_data,mysql,db_name)
     
     if is_valid_user:
         response=make_response(redirect(url_for('Index')))
-        response.set_cookie('LoginName',login_data[0])
+        response.set_cookie('LoginName',login_data[0],max_age=60*60)
 
         # user=User()
         # user.id=login_data[0]
@@ -54,6 +70,7 @@ def check_user():
 def Index():
     
     login_name=request.cookies.get('LoginName')
+    print(login_name)
     if login_name==None:
         return redirect(url_for('login'))
     
@@ -62,9 +79,33 @@ def Index():
     if login_name==user_name:
         data = get_mysql_data(mysql,db_name) 
 
-        return render_template('cargas.html', cargas=data)
+        return render_template('cargas.html', alumnos=data)
     else:
         return redirect(url_for('login'))
+
+@app.route('/search_contact', methods=['POST'])
+def search_student():
+    login_name=request.cookies.get('LoginName')
+    if login_name==None:
+        return redirect(url_for('login'))
+    
+    user_name=get_user_data(login_name,mysql,db_name)[0][1]
+    
+    if login_name==user_name:
+        fullname,idNumber = get_form_data()
+        print(fullname,idNumber)
+        if fullname!='':
+            data = get_mysql_data(mysql,db_name,id=fullname,reg='nombreAlumnos') 
+        elif idNumber!='':
+            data = get_mysql_data(mysql,db_name,id=idNumber,reg='DNIAlumnos') 
+        else:
+            data = get_mysql_data(mysql,db_name)
+
+        return render_template('cargas.html', alumnos=data)
+    else:
+        return redirect(url_for('login'))
+
+
 
 @app.route('/add_contact', methods=['POST'])
 def add_contact():

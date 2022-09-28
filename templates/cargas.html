@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Cargas Dashboard</title>
+    <title>Alumnos</title>
     <style>
-        body{background:#FF9000;}
+        body{background:#3193bd;}
         .form-div{
             margin-top: 10px;
         }
@@ -23,6 +23,10 @@
         .form-control{
             margin-right: 4px;
         }
+        .form-div{
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 <body>
@@ -34,17 +38,19 @@
     {% endif %}
     {% endwith %}
     <div class="form-div">
-    <form class="form-inline" action="/add_contact" method="POST">
+    <form class="form-inline" action="/search_contact" method="POST">
         <input class="form-control" type="text" name="fullname" placeholder="Nombre">      
         <!-- <input type="text" name="use" placeholder="Tipo"> -->
-        <input class="form-control" type="text" name="powerW" placeholder="Potencia Activa">
-        <input class="form-control" type="text" name="powerS" placeholder="Potencia Aparente">
-        <select class="form-control" name="use" aria-placeholder="Tipo de Carga">
-            <option value="I">Iluminación</option>
-            <option value="T">Tomacorrientes</option>
-        </select>
-        <button type="submit" class="btn btn-dark">Agregar Carga</button>
+        <input class="form-control" type="text" name="idNumber" placeholder="DNI">
+        <button type="submit" class="btn btn-dark">Buscar</button>
     </form>
+    <form action="/logout" method="POST">
+        <button class="btn btn-dark" type="submit">Logout</button>
+
+    </form>
+    </div>
+    <div>
+        
     </div>
     <div class="table-div">
     <table class="table">
@@ -56,22 +62,21 @@
                 <td>P Aparente</td>
                 <td>Acción</td> -->
                 <th scope="col">Nombre</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">P Activa</th>
-                <th scope="col">P Aparente</th>
-                <th scope="col">Acción</th>
+                <th scope="col">DNI</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Nº de Contacto</th>
+                <th scope="col">Presente</th>
             </tr>
         </thead>
         <tbody class="tbody-dark">
-    {% for carga in cargas %}
+    {% for alumno in alumnos %}
             <tr>
-                <td>{{carga.1}}</td>
-                <td>{{carga.2}}</td>
-                <td>{{carga.3}}</td>
-                <td>{{carga.4}}</td>
+                <td>{{alumno.1}}</td>
+                <td>{{alumno.2}}</td>
+                <td>{{alumno.3}}</td>
+                <td>{{alumno.4}}</td>
                 <td>
-                    <a class="btn btn-light btn-sm" href="/edit/{{carga.0}}">Edit</a>
-                    <a class="btn btn-light btn-sm" href="/delete/{{carga.0}}">Delete</a>
+                    <a class="btn btn-light btn-sm" href="/edit/{{alumno.0}}">Presente</a>
                 </td>
             </tr>
     {% endfor %}
